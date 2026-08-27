@@ -1724,7 +1724,7 @@ class RunQueue:
 
             return 1.0
 
-        for q in self.dumpsigs_launched:
+        for q in self.dumpsigs_launched.copy():
             # The finished processes are joined when calling is_alive()
             if not q.is_alive():
                 self.dumpsigs_launched.remove(q)
@@ -1733,7 +1733,7 @@ class RunQueue:
             return 1.0
 
         for p in self.dumpsigs_launched:
-                p.join()
+            p.join()
 
         bb.parse.siggen.dump_sigs(self.rqdata.dataCaches, options)
 
